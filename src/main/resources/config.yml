@@ -1,0 +1,20 @@
+voting:
+  item:
+    ==: org.bukkit.inventory.ItemStack
+    type: GOLD_NUGGET
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §f§k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX
+      lore:
+        - §e持ってるだけでハッピーになるコイン
+      enchants:
+        LOOT_BONUS_BLOCKS: 1
+  stat: 0
+  enable: true
+mysql:
+  host: localhost
+  user: root
+  pass: pass
+  port: 3306
+  db: man10voteplugin
