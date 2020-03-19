@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="Man10VotePlugin1.0">
-    <output-path>$PROJECT_DIR$/../../../spigotservers/server/plugins</output-path>
+    <output-path>$PROJECT_DIR$/../../1.12/plugins</output-path>
     <root id="archive" name="Man10VotePlugin1.0.jar">
       <element id="module-output" name="Man10VotePlugin.main" />
       <element id="dir-copy" path="$PROJECT_DIR$/src/main/resources" />

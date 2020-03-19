@@ -25,6 +25,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
     var voteCoinEnable = true
     var whenVoted  = 0L
     var count = 0
+    var id = 0
 
     lateinit var coinStack : ItemStack
 
@@ -51,10 +52,15 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
     }
 
     //コインを手に入れる
-    fun getCoin(p:Player){
+    fun getCoin(p:Player,id:Int){
 
         if (!p.hasPermission("man10voting.getcoin")){
             p.sendMessage("$prefix§c§lあなたはコインを手に入れることができません!")
+            return
+        }
+
+        if (this.id != id){
+            p.sendMessage("$prefix§cこのコインはもう受け取れないようです！")
             return
         }
 
@@ -81,15 +87,16 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
         if (!voteCoinEnable)return
 
+        if (count>=4){
 
-        if (count>=5){
+            this.id = Random().nextInt()
 
             val tc = TextComponent()
             Bukkit.broadcastMessage("${prefix}§a§l${p.name}さんが投票しました!§3§l5回目の投票です!")
             tc.text = "${prefix}§b§l§kaa§e§l§f §k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§f§lゲット->§6§l§n<ここをクリック>§f §b§l§kaa"
             tc.color = ChatColor.AQUA
             tc.isBold = true
-            tc.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/man10votecoin getcoin ")
+            tc.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/man10votecoin getcoin $id")
             val ht = "§e§l§k|§f§l If you click here,you get one §e§lHappy§6§lCoin§f§l chance §e§l§k|"
             tc.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, ComponentBuilder(ht).create())
             Bukkit.spigot().broadcast(tc)
@@ -113,7 +120,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
         val ht = "§e§l投票のURLを開きます"
         tc.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, ComponentBuilder(ht).create())
         Bukkit.spigot().broadcast(tc)
-        Bukkit.broadcastMessage("$prefix§f§k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§f§lゲットまで...§e§l§n" + (5 - count) + "回§e§l")
+        Bukkit.broadcastMessage("$prefix§f§k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§f§lゲットまで...§e§l§n" + (4 - count) + "回§e§l")
         count ++
 
         //音を鳴らす
@@ -148,7 +155,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
         }
 
         if (cmd == "getcoin"){
-            getCoin(sender)
+            getCoin(sender,args[1].toInt())
             return true
         }
 
@@ -186,6 +193,5 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
         return false
     }
-
 
 }
