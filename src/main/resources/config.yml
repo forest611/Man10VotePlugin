@@ -12,9 +12,3 @@ voting:
         LOOT_BONUS_BLOCKS: 1
   stat: 0
   enable: true
-mysql:
-  host: localhost
-  user: root
-  pass: pass
-  port: 3306
-  db: man10voteplugin

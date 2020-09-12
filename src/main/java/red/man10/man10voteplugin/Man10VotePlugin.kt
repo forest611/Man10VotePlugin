@@ -1,7 +1,6 @@
 package red.man10.man10voteplugin
 
 import org.bukkit.plugin.java.JavaPlugin
-import red.man10.man10voteplugin.votecoin.VoteCoin
 
 class Man10VotePlugin : JavaPlugin() {
 
@@ -13,7 +12,7 @@ class Man10VotePlugin : JavaPlugin() {
 
         voteCoin.loadConfig()
 
-        getCommand("man10votecoin").executor = voteCoin
+        getCommand("man10votecoin")!!.setExecutor(voteCoin)
 
 
     }

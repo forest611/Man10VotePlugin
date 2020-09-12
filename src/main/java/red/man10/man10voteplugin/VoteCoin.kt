@@ -1,4 +1,4 @@
-package red.man10.man10voteplugin.votecoin
+package red.man10.man10voteplugin
 
 import net.md_5.bungee.api.ChatColor
 import net.md_5.bungee.api.chat.ClickEvent
@@ -7,13 +7,11 @@ import net.md_5.bungee.api.chat.HoverEvent
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Bukkit
 import org.bukkit.Location
-import org.bukkit.Sound
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
-import red.man10.man10voteplugin.Man10VotePlugin
 import java.util.*
 
 
@@ -33,8 +31,8 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
         pl.saveDefaultConfig()
 
-        val c = pl.config!!
-        coinStack = c.getItemStack("voting.item")
+        val c = pl.config
+        coinStack = c.getItemStack("voting.item")!!
 
         stat = c.getInt("voting.stat")
 
@@ -42,7 +40,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
     fun saveConfig(){
 
-        val c = pl.config!!
+        val c = pl.config
 
         c.set("voting.enable",voteCoinEnable)
         c.set("voting.stat",stat)
@@ -92,7 +90,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
             this.id = Random().nextInt()
 
             val tc = TextComponent()
-            Bukkit.broadcastMessage("${prefix}§a§l${p.name}さんが投票しました!§3§l5回目の投票です!")
+            Bukkit.broadcastMessage("${prefix}§a§l${p.name}さんが投票しました!§6§l5回目の投票です!")
             tc.text = "${prefix}§b§l§kaa§e§l§f §k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§f§lゲット->§6§l§n<ここをクリック>§f §b§l§kaa"
             tc.color = ChatColor.AQUA
             tc.isBold = true
@@ -103,7 +101,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
             for (player in Bukkit.getOnlinePlayers()) {
                 val loc: Location = player.location
-                loc.world.playSound(loc, Sound.RECORD_WAIT, 0.1f, 1f)
+                loc.world.playSound(loc, "slot.happy_atari", 1.0f, 1f)
             }
 
             whenVoted = Date().time
@@ -126,14 +124,14 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
         //音を鳴らす
         for (player in Bukkit.getOnlinePlayers()) {
             val loc: Location = player.location
-            loc.world.playSound(loc, Sound.RECORD_STRAD, 0.1f, 1f)
+            loc.world.playSound(loc, "slot.happy_hazure", 0.1f, 1f)
         }
 
 
     }
 
 
-    override fun onCommand(sender: CommandSender?, command: Command?, label: String?, args: Array<out String>?): Boolean {
+    override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
 
         if (label != "man10votecoin")return false
 
@@ -147,7 +145,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
         if (sender !is Player){
 
             if (args[0] == "voting"){
-                voting(Bukkit.getPlayer(args[1]))
+                voting(Bukkit.getPlayer(args[1])?:return false)
                 return true
             }
 
@@ -167,9 +165,9 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
             val item = sender.inventory.itemInMainHand
             coinStack = item
-            Thread(Runnable {
+            Thread {
                 saveConfig()
-            }).start()
+            }.start()
             return true
 
         }

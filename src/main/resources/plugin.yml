@@ -1,8 +1,7 @@
 name: Man10VotePlugin
 version: 1.0
+api-version: 1.16
 main: red.man10.man10voteplugin.Man10VotePlugin
 commands:
   man10votecoin: #vote coin command
-    default: op
-  mvj: # vote jackpot
     default: op
