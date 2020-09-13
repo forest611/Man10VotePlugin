@@ -18,7 +18,7 @@ import java.util.*
 class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
     val prefix = "§d§l[§f§k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§a§l]§r"
-    var gotPlayers = mutableListOf<Player>()
+    var gotPlayers = mutableListOf<UUID>()
     var stat = 0
     var voteCoinEnable = true
     var whenVoted  = 0L
@@ -72,10 +72,10 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
             return
         }
 
-        if (gotPlayers.contains(p))return
+        if (gotPlayers.contains(p.uniqueId))return
 
         stat ++
-        gotPlayers.add(p)
+        gotPlayers.add(p.uniqueId)
 
         p.inventory.addItem(coinStack)
         p.sendMessage("$prefix§f§k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§f§lを受け取りました!");
@@ -127,6 +127,9 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
             loc.world.playSound(loc, "slot.happy_hazure", 0.1f, 1f)
         }
 
+        Thread{
+            saveConfig()
+        }.start()
 
     }
 
