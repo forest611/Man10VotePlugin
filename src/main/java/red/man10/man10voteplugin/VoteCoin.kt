@@ -81,7 +81,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
         p.sendMessage("$prefix§f§k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§f§lを受け取りました!");
     }
 
-    fun voting(p:Player){
+    fun voting(p:String){
 
         if (!voteCoinEnable)return
 
@@ -90,7 +90,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
             this.id = Random().nextInt()
 
             val tc = TextComponent()
-            Bukkit.broadcastMessage("${prefix}§a§l${p.name}さんが投票しました!§6§l5回目の投票です!")
+            Bukkit.broadcastMessage("${prefix}§a§l${p}さんが投票しました!§6§l5回目の投票です!")
             tc.text = "${prefix}§b§l§kaa§e§l§f §k§lXX§a§lH§2§la§e§lp§d§lp§b§ly§6§lCoin§f§k§lXX§f§lゲット->§6§l§n<ここをクリック>§f §b§l§kaa"
             tc.color = ChatColor.AQUA
             tc.isBold = true
@@ -111,7 +111,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
             return
         }
         val tc = TextComponent()
-        tc.text = "$prefix§a§l${p.name}さんが投票しました!§6§lみんなも投票しよう!§a§l§n[/vote]"
+        tc.text = "$prefix§a§l${p}さんが投票しました!§6§lみんなも投票しよう!§a§l§n[/vote]"
         tc.color = ChatColor.AQUA
         tc.isBold = true
         tc.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/vote")
@@ -148,7 +148,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
         if (sender !is Player){
 
             if (args[0] == "voting"){
-                voting(Bukkit.getPlayer(args[1])?:return false)
+                voting(args[1])
                 return true
             }
 
