@@ -111,10 +111,10 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
             return
         }
         val tc = TextComponent()
-        tc.text = "$prefix§a§l${p}さんが投票しました!§6§lみんなも投票しよう!§a§l§n[/vote]"
+        tc.text = "$prefix§a§l${p}さんが投票しました!§6§lみんなも投票しよう!§a§l§n[/voteall]"
         tc.color = ChatColor.AQUA
         tc.isBold = true
-        tc.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/vote")
+        tc.clickEvent = ClickEvent(ClickEvent.Action.RUN_COMMAND, "/voteall")
         val ht = "§e§l投票のURLを開きます"
         tc.hoverEvent = HoverEvent(HoverEvent.Action.SHOW_TEXT, ComponentBuilder(ht).create())
         Bukkit.spigot().broadcast(tc)
