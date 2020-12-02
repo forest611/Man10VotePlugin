@@ -101,7 +101,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
 
             for (player in Bukkit.getOnlinePlayers()) {
                 val loc: Location = player.location
-                loc.world.playSound(loc, "slot.happy_atari", 0.3f, 1f)
+                loc.world.playSound(loc, "slot.happy_atari", 0.1f, 1f)
             }
 
             whenVoted = Date().time
@@ -124,7 +124,7 @@ class VoteCoin(private val pl:Man10VotePlugin):CommandExecutor{
         //音を鳴らす
         for (player in Bukkit.getOnlinePlayers()) {
             val loc: Location = player.location
-            loc.world.playSound(loc, "slot.happy_hazure", 0.1f, 1f)
+            loc.world.playSound(loc, "slot.happy_hazure", 0.05f, 1f)
         }
 
         Thread{
